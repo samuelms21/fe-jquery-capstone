@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Path Recommendation with NEMO</title>
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="main-container container-fluid">
+    <h1 class="my-4 text-center">Career Path Recommendation with NEMO</h1>
+    <form id="submitProfileForm" class="m-3">
+      <div class="row mb-2">
+        <!-- Email -->
+        <div class="col col-sm-6">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="youremail@mail.com" id="email">
+          </div>
+        </div>
+        <!-- Phone Number -->
+        <div class="col col-sm-6">
+          <label for="phone" class="form-label">Phone</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="+62 999 0000 1111" id="phone">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Full Name -->
+        <div class="col col-sm-6">
+          <label for="fullname" class="form-label">Full Name</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-person"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="John Doe" id="fullname">
+          </div>
+        </div>
+        <!-- Location -->
+        <div class="col col-sm-6">
+          <label for="location" class="form-label">Location</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-geo-alt"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="DKI Jakarta" id="location">
+          </div>
+        </div>
+      </div>
+      <!-- START OF EXPERIENCE -->
+      <h4 class="mt-4 mb-3">Experience</h4>
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <!-- Job Title -->
+            <div class="col col-sm-6">
+              <label for="jobTitle" class="form-label">Job Title</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Salesperson" id="jobTitle">
+              </div>
+            </div>
+    
+            <!-- Phone Number -->
+            <div class="col col-sm-6">
+              <label for="jobStartDate" class="form-label">Start Date</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-calendar-event"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="January 1, 1990" id="jobStartDate">
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <!-- Company -->
+            <div class="col col-sm-6">
+              <label for="companyName" class="form-label">Company</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="XYZ Consulting" id="companyName">
+              </div>
+            </div>
+    
+            <!-- Phone Number -->
+            <div class="col col-sm-6">
+              <label for="jobEndDate" class="form-label">End Date</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-calendar-event"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="December 1, 1990" id="jobEndDate">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Experience</button>
+      <!-- END OF EXPERIENCE -->
+      <!-- START OF EDUCATION -->
+      <h4 class="my-3">Education</h4>
+      <!-- START OF EDUCATION CARD -->
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <!-- Institution Name -->
+            <div class="col col-sm-8">
+              <label for="institutionName" class="form-label">Institution</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="JKL Business College" id="institutionName">
+              </div>
+            </div>
+    
+            <!-- Education Start Date -->
+            <div class="col col-sm-4">
+              <label for="eduStartDate" class="form-label">Start Date</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-calendar-event"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="January 1, 2010" id="eduStartDate">
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <!-- Field of Study -->
+            <div class="col col-sm-5">
+              <label for="fieldOfStudy" class="form-label">Field of Study</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Computer Science" id="fieldOfStudy">
+              </div>
+            </div>
+    
+            <!-- Degree -->
+            <div class="col col-sm-3">
+              <label for="degree" class="form-label">Degree</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-calendar-event"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="B. Sc" id="degree">
+              </div>
+            </div>
+            <!-- Education End Date -->
+            <div class="col col-sm-4">
+              <label for="eduEndDate" class="form-label">End Date</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-calendar-event"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="January 1, 2014" id="eduEndDate">
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- END OF EDUCATION CARD -->
+      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Education</button>
+      <!-- END OF EDUCATION -->
+      <!-- START OF SKILLS -->
+      <h4 class="my-3">Skills</h4>
+      <div class="d-flex flex-row justify-content-start">
+        <div class="skill-chip">
+          Python
+        </div>
+        <div class="skill-chip">
+          MySQL
+        </div>
+        <div class="skill-chip">
+          C++
+        </div>
+        <div class="skill-chip">
+          Java
+        </div>
+        <div class="skill-chip">
+          Angular
+        </div>
+      </div>
+      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Skills</button>
+      <!-- END OF SKILLS -->
+    </form>
+  </div>
+
+  <!-- jQuery -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
