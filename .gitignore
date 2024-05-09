@@ -1,1 +1,24 @@
-node_modules/
+# Dependencies
+/node_modules
+
+# Environment variables
+.env
+.env.local
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+
+# Compiled/transpiled files
+/dist
+/build
+
+# Test coverage reports
+/coverage
+
+# Dependency directories (e.g., npm-debug.log)
+npm-debug.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
