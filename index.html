@@ -6,6 +6,7 @@
   <title>Career Path Recommendation with NEMO</title>
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="node_modules/jquery-ui/themes/base/all.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -57,58 +58,59 @@
         </div>
       </div>
       <!-- START OF EXPERIENCE -->
-      <h4 class="mt-4 mb-3">Experience</h4>
-      <div class="card">
-        <div class="card-body">
-          <div class="row mb-2">
-            <!-- Job Title -->
-            <div class="col col-sm-6">
-              <label for="jobTitle" class="form-label">Job Title</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-briefcase"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Salesperson" id="jobTitle">
+      <div id="experienceContainer">
+        <h4 class="mt-4 mb-3">Experience</h4>
+        <div class="card mb-2" id="expCard_0">
+          <div class="card-body">
+            <div class="row mb-2">
+              <!-- Job Title -->
+              <div class="col col-sm-6">
+                <label for="jobTitle_0" class="form-label">Job Title</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-briefcase"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="Salesperson" id="jobTitle_0">
+                </div>
+              </div>
+              <!-- Job Start Date -->
+              <div class="col col-sm-6">
+                <label for="jobStartDate_0" class="form-label">Start Date</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-calendar-event"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="January 1, 1990" id="jobStartDate_0">
+                </div>
               </div>
             </div>
-    
-            <!-- Phone Number -->
-            <div class="col col-sm-6">
-              <label for="jobStartDate" class="form-label">Start Date</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-calendar-event"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="January 1, 1990" id="jobStartDate">
+            <div class="row mb-2">
+              <!-- Company -->
+              <div class="col col-sm-6">
+                <label for="companyName_0" class="form-label">Company</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-briefcase"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="XYZ Consulting" id="companyName_0">
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <!-- Company -->
-            <div class="col col-sm-6">
-              <label for="companyName" class="form-label">Company</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-briefcase"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="XYZ Consulting" id="companyName">
-              </div>
-            </div>
-    
-            <!-- Phone Number -->
-            <div class="col col-sm-6">
-              <label for="jobEndDate" class="form-label">End Date</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-calendar-event"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="December 1, 1990" id="jobEndDate">
+              <!-- Phone Number -->
+              <div class="col col-sm-6">
+                <label for="jobEndDate_0" class="form-label">End Date</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-calendar-event"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="December 1, 1990" id="jobEndDate_0">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Experience</button>
+
+      <button type="button" class="d-block btn btn-dark mt-2 w-100" id="addExperienceBtn"><i class="bi bi-plus-square me-2"></i> Add Experience</button>
       <!-- END OF EXPERIENCE -->
       <!-- START OF EDUCATION -->
       <h4 class="my-3">Education</h4>
@@ -202,8 +204,10 @@
   </div>
 
   <!-- jQuery -->
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/jquery-ui/ui/widgets/datepicker.js"></script>
   <!-- Bootstrap JS -->
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
