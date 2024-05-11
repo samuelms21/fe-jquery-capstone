@@ -35,8 +35,21 @@ $(function() {
             $("#jobEndDate_0").val(dateText);
         }
     });
-    // DEBUG
-    console.log("Initialized datepickers for jobStartDate_0 & jobEndDate_0");
+    
+    // Initialize datepicker listener to eduStartDate_0 & eduEndDate_0
+    $("#eduStartDate_0").datepicker({
+        dateFormat: "MM d, yy",
+        onSelect: function(dateText, inst) {
+            $("#eduStartDate_0").val(dateText);
+        }
+    });
+
+    $("#eduEndDate_0").datepicker({
+        dateFormat: "MM d, yy",
+        onSelect: function(dateText, inst) {
+            $("#eduEndDate_0").val(dateText);
+        }
+    });
 
     // Initialize listeners to "Add Experience" button
     $("#addExperienceBtn").on("click", function() {
@@ -264,29 +277,65 @@ $(function() {
         newEduCardElement.append(eduCardBody);
         $("#educationContainer").append(newEduCardElement);
 
-        // // Attach datepicker listener to #jobStartDate_{index} element
-        // $(`#jobStartDate_${nextIdx}`).datepicker({
-        //     dateFormat: "MM d, yy",
-        //     onSelect: function(dateText, inst) {
-        //         $(`#jobStartDate_${nextIdx}`).val(dateText);
+        // Attach datepicker listener to #eduStartDate_{index} element
+        $(`#eduStartDate_${nextIdx}`).datepicker({
+            dateFormat: "MM d, yy",
+            onSelect: function(dateText, inst) {
+                $(`#eduStartDate_${nextIdx}`).val(dateText);
                 
-        //         // DEBUG
-        //         // console.log(inst);
-        //     }
-        // });
+                // DEBUG
+                // console.log(inst);
+            }
+        });
 
-        // // Attach datepicker listener to #jobEndDate_{index} element
-        // $(`#jobEndDate_${nextIdx}`).datepicker({
-        //     dateFormat: "MM d, yy",
-        //     onSelect: function(dateText, inst) {
-        //         $(`#jobEndDate_${nextIdx}`).val(dateText);
+        // Attach datepicker listener to #eduEndDate_{index} element
+        $(`#eduEndDate_${nextIdx}`).datepicker({
+            dateFormat: "MM d, yy",
+            onSelect: function(dateText, inst) {
+                $(`#eduEndDate_${nextIdx}`).val(dateText);
                 
-        //         // DEBUG
-        //         // console.log(inst);
-        //     }
-        // });
+                // DEBUG
+                // console.log(inst);
+            }
+        });
 
         // DEBUG
         // console.log($("#experienceContainer").children());
+    });
+
+    // Initialize dialog to add new skills
+    let addSkillsDialog = $("#addSkillsDialog").dialog({
+        autoOpen: false,
+        height: 300,
+        width: 400,
+        modal: true,
+        buttons: {
+            "Add Skill": function() {
+                // DEBUG
+                var newSkill = $("#skillNameInput").val();
+                if (newSkill != null) {
+                    console.log(`Added new skill: ${newSkill.trim()}`);
+                } else {
+                    console.log("new skill is empty.");
+                }
+
+                addSkillsDialog.dialog("close");
+            },
+            Cancel: function() {
+                addSkillsDialog.dialog("close");
+            }
+        },
+        close: function() {
+            console.log("closed add skills dialog");
+        }
+    });
+
+    $("#addSkillsForm").on("submit", function(event) {
+        console.log(event);
+        event.preventDefault();
+    });
+
+    $("#addSkillsBtn").button().on("click", function() {
+        addSkillsDialog.dialog("open");
     });
 });

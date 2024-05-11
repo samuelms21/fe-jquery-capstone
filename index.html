@@ -182,7 +182,7 @@
       <!-- END OF EDUCATION -->
       <!-- START OF SKILLS -->
       <h4 class="my-3">Skills</h4>
-      <div class="d-flex flex-row justify-content-start">
+      <div class="d-flex flex-row justify-content-start" id="skillsContainer">
         <div class="skill-chip">
           Python
         </div>
@@ -199,14 +199,28 @@
           Angular
         </div>
       </div>
-      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Skills</button>
+      <button type="button" class="d-block btn btn-dark mt-2 w-100" id="addSkillsBtn">
+        <i class="bi bi-plus-square me-2"></i> Add Skills
+      </button>
       <!-- END OF SKILLS -->
+    </form>
+  </div>
+
+  <div id="addSkillsDialog" title="Add New Skill">
+    <p>All form fields are required.</p>
+    <form id="addSkillsForm">
+      <fieldset>
+        <label for="skillName">Skill</label>
+        <input type="text" id="skillNameInput">
+      </fieldset>
     </form>
   </div>
 
   <!-- jQuery -->
   <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="./node_modules/jquery-ui/ui/widgets/datepicker.js"></script>
+  <script src="./node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
+  <!-- <script src="./node_modules/jquery-ui/ui/widgets/datepicker.js"></script>
+  <script src="./node_modules/jquery-ui/ui/widgets/dialog.js"></script> -->
   <!-- Bootstrap JS -->
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./app.js"></script>
