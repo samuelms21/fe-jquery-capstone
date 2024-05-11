@@ -21,8 +21,16 @@ body {
     color: black;
     font-size: 15px;
     padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .no-close .ui-dialog-titlebar-close {
     display: none;
+}
+
+.custom-close-btn {
+    cursor: pointer;
 }

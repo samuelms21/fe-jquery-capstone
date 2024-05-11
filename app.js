@@ -19,6 +19,39 @@ let skills = ["Python", "MySQL", "C++"];
 // let skills = ["Python", "MySQL", "C++", "Java", "Angular"];
 // console.log(experience);
 
+function deleteSkill(skillName) {
+    // console.log(skillName);
+    // console.log(skills);
+    // debug
+    // console.log("debugging deleteskill");
+    // console.log(index);
+
+    // // let beforeLength = skills.length;
+    // skills.splice(index, 1);
+    // console.log(skills);
+    // // let afterLength = skills.length;
+
+    // // if (afterLength < beforeLength) {
+    // $(`#skill_${index}`).remove();
+    // }
+
+    let skillIdx = skills.indexOf(skillName);
+
+    // console.log(skillName);
+    // console.log(skills);
+
+    if (skillIdx != -1) {
+        skills.splice(skillIdx, 1);
+        let findChip = $("#skillsContainer").find(`[data-skill='${skillName}']`);
+        findChip.remove();
+
+        // Reset text input in dialog
+        $("#skillNameInput").val(null);
+    }
+
+    // console.log(skills);
+}
+
 $(function() {
     // When DOM is fully loaded
     console.log("DOM FULLY LOADED");
@@ -306,8 +339,27 @@ $(function() {
     });
 
     // Create skill-chip elements to list initial skills
-    for (const item of skills) {
-        var skillChip = $("<div>").addClass("skill-chip").text(item);
+    for (var k = 0; k < skills.length; k++) {
+        var currentSkill = skills[k];
+        var skillChip = $("<div>").addClass("skill-chip").attr("id", `skill_${k}`).text(currentSkill);
+        skillChip.attr("data-skill", currentSkill);
+
+        var deleteSkillBtn = $("<div>").addClass(["ms-2", "custom-close-btn"]).html('<i class="bi bi-x-circle-fill"></i>');
+
+        deleteSkillBtn.on("click", function(event) {
+            let chipElement = event.currentTarget.parentElement;
+
+            // DEBUG
+            // console.log(chipElement);
+
+            let skillName = $(chipElement).attr("data-skill");
+
+            // console.log(chipElements);
+            // console.log(skillName);
+            deleteSkill(skillName);
+        });
+
+        skillChip.append(deleteSkillBtn);
         $("#skillsContainer").append(skillChip);
     }
 
@@ -325,11 +377,10 @@ $(function() {
                 text: "Add Skill",
                 class: "btn btn-primary",
                 click: function() {
+                    // Get skill text input
                     let newSkill = $("#skillNameInput").val();
-
-                    // console.log(typeof newSkill);
                     
-                    if (newSkill == "") {
+                    if (newSkill.trim() == "") {
                         alert("Skill is still empty.");
                         return;
                     }
@@ -337,12 +388,25 @@ $(function() {
                     let indexOfSkill = skills.indexOf(newSkill);
                     if (indexOfSkill == -1) {
                         skills.push(newSkill);
-                        var newSkillChip = $("<div>").addClass("skill-chip").text(newSkill);
-                        $("#skillsContainer").append(newSkillChip);
 
-                        // DEBUG
-                        // console.log(`added new skill: ${newSkill}`);
-                        // console.log(skills);
+                        var newSkillChip = $("<div>").addClass("skill-chip").text(newSkill);
+                        newSkillChip.attr("data-skill", newSkill);
+
+                        var newDeleteSkillBtn = $("<div>").addClass(["ms-2", "custom-close-btn"]).html('<i class="bi bi-x-circle-fill"></i>');
+
+                        newDeleteSkillBtn.on("click", function(event) {
+                            let newChipElement = event.currentTarget.parentElement;
+
+                            // debug
+                            // console.log(newChipElement);
+
+                            let newSkillName = $(newChipElement).attr("data-skill");
+
+                            deleteSkill(newSkillName);
+                        });
+                
+                        newSkillChip.append(newDeleteSkillBtn);
+                        $("#skillsContainer").append(newSkillChip);
                     }
 
                     $(this).dialog("close");
@@ -367,6 +431,10 @@ $(function() {
     });
 
     $("#addSkillsBtn").button().on("click", function() {
+        // Reset text input in dialog
+        $("#skillNameInput").val(null);
+
+        // Open dialog
         addSkillsDialog.dialog("open");
     });
 });
