@@ -15,6 +15,8 @@ var emptyEduObj = {
 
 let experience = [emptyExpObj];
 let education = [emptyEduObj];
+let skills = ["Python", "MySQL", "C++"]; 
+// let skills = ["Python", "MySQL", "C++", "Java", "Angular"];
 // console.log(experience);
 
 $(function() {
@@ -303,35 +305,64 @@ $(function() {
         // console.log($("#experienceContainer").children());
     });
 
+    // Create skill-chip elements to list initial skills
+    for (const item of skills) {
+        var skillChip = $("<div>").addClass("skill-chip").text(item);
+        $("#skillsContainer").append(skillChip);
+    }
+
     // Initialize dialog to add new skills
     let addSkillsDialog = $("#addSkillsDialog").dialog({
+        dialogClass: "no-close",
         autoOpen: false,
+        resizable: false,
+        draggable: false,
         height: 300,
         width: 400,
         modal: true,
-        buttons: {
-            "Add Skill": function() {
-                // DEBUG
-                var newSkill = $("#skillNameInput").val();
-                if (newSkill != null) {
-                    console.log(`Added new skill: ${newSkill.trim()}`);
-                } else {
-                    console.log("new skill is empty.");
-                }
+        buttons: [
+            {
+                text: "Add Skill",
+                class: "btn btn-primary",
+                click: function() {
+                    let newSkill = $("#skillNameInput").val();
 
-                addSkillsDialog.dialog("close");
+                    // console.log(typeof newSkill);
+                    
+                    if (newSkill == "") {
+                        alert("Skill is still empty.");
+                        return;
+                    }
+
+                    let indexOfSkill = skills.indexOf(newSkill);
+                    if (indexOfSkill == -1) {
+                        skills.push(newSkill);
+                        var newSkillChip = $("<div>").addClass("skill-chip").text(newSkill);
+                        $("#skillsContainer").append(newSkillChip);
+
+                        // DEBUG
+                        // console.log(`added new skill: ${newSkill}`);
+                        // console.log(skills);
+                    }
+
+                    $(this).dialog("close");
+                }
             },
-            Cancel: function() {
-                addSkillsDialog.dialog("close");
+            {
+                text: "Close",
+                class: "btn btn-danger",
+                click: function() {
+                    $(this).dialog("close");
+                }
             }
-        },
+        ],
         close: function() {
-            console.log("closed add skills dialog");
+            // console.log("closed add skills dialog");
         }
     });
 
     $("#addSkillsForm").on("submit", function(event) {
-        console.log(event);
+        // console.log(event);
         event.preventDefault();
     });
 
