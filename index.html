@@ -90,7 +90,7 @@
                 <label for="companyName_0" class="form-label">Company</label>
                 <div class="input-group">
                   <span class="input-group-text">
-                    <i class="bi bi-briefcase"></i>
+                    <i class="bi bi-building"></i>
                   </span>
                   <input type="text" class="form-control" placeholder="XYZ Consulting" id="companyName_0">
                 </div>
@@ -112,72 +112,73 @@
 
       <button type="button" class="d-block btn btn-dark mt-2 w-100" id="addExperienceBtn"><i class="bi bi-plus-square me-2"></i> Add Experience</button>
       <!-- END OF EXPERIENCE -->
+
       <!-- START OF EDUCATION -->
       <h4 class="my-3">Education</h4>
       <!-- START OF EDUCATION CARD -->
-      <div class="card">
-        <div class="card-body">
-          <div class="row mb-2">
-            <!-- Institution Name -->
-            <div class="col col-sm-8">
-              <label for="institutionName" class="form-label">Institution</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-briefcase"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="JKL Business College" id="institutionName">
+      <div id="educationContainer">
+        <div class="card mb-2" id="eduCard_0">
+          <div class="card-body">
+            <div class="row mb-2">
+              <!-- Institution Name -->
+              <div class="col col-sm-8">
+                <label for="institutionName_0" class="form-label">Institution</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-pin-map"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="JKL Business College" id="institutionName_0">
+                </div>
+              </div>
+              <!-- Education Start Date -->
+              <div class="col col-sm-4">
+                <label for="eduStartDate_0" class="form-label">Start Date</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-calendar-event"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="January 1, 2010" id="eduStartDate_0">
+                </div>
               </div>
             </div>
-    
-            <!-- Education Start Date -->
-            <div class="col col-sm-4">
-              <label for="eduStartDate" class="form-label">Start Date</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-calendar-event"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="January 1, 2010" id="eduStartDate">
+            <div class="row mb-2">
+              <!-- Field of Study -->
+              <div class="col col-sm-5">
+                <label for="fieldOfStudy_0" class="form-label">Field of Study</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-book"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="Computer Science" id="fieldOfStudy_0">
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <!-- Field of Study -->
-            <div class="col col-sm-5">
-              <label for="fieldOfStudy" class="form-label">Field of Study</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-briefcase"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Computer Science" id="fieldOfStudy">
+              <!-- Degree -->
+              <div class="col col-sm-3">
+                <label for="degree_0" class="form-label">Degree</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-mortarboard"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="B. Sc" id="degree_0">
+                </div>
               </div>
-            </div>
-    
-            <!-- Degree -->
-            <div class="col col-sm-3">
-              <label for="degree" class="form-label">Degree</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-calendar-event"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="B. Sc" id="degree">
+              <!-- Education End Date -->
+              <div class="col col-sm-4">
+                <label for="eduEndDate_0" class="form-label">End Date</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-calendar-event"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="January 1, 2014" id="eduEndDate_0">
+                </div>
               </div>
+        
             </div>
-            <!-- Education End Date -->
-            <div class="col col-sm-4">
-              <label for="eduEndDate" class="form-label">End Date</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-calendar-event"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="January 1, 2014" id="eduEndDate">
-              </div>
-            </div>
-            
           </div>
         </div>
       </div>
       <!-- END OF EDUCATION CARD -->
-      <button type="button" class="d-block btn btn-dark mt-2 w-100"><i class="bi bi-plus-square me-2"></i> Add Education</button>
+      <button type="button" class="d-block btn btn-dark mt-2 w-100" id="addEducationBtn"><i class="bi bi-plus-square me-2"></i> Add Education</button>
       <!-- END OF EDUCATION -->
       <!-- START OF SKILLS -->
       <h4 class="my-3">Skills</h4>
