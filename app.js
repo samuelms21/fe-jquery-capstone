@@ -20,25 +20,7 @@ let skills = ["Python", "MySQL", "C++"];
 // console.log(experience);
 
 function deleteSkill(skillName) {
-    // console.log(skillName);
-    // console.log(skills);
-    // debug
-    // console.log("debugging deleteskill");
-    // console.log(index);
-
-    // // let beforeLength = skills.length;
-    // skills.splice(index, 1);
-    // console.log(skills);
-    // // let afterLength = skills.length;
-
-    // // if (afterLength < beforeLength) {
-    // $(`#skill_${index}`).remove();
-    // }
-
     let skillIdx = skills.indexOf(skillName);
-
-    // console.log(skillName);
-    // console.log(skills);
 
     if (skillIdx != -1) {
         skills.splice(skillIdx, 1);
