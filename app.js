@@ -1,11 +1,24 @@
-var emptyExpObj = {
-    jobTitle: null,
-    companyName: null,
-    jobStartDate: null,
-    jobEndDate: null,
-};
+class Experience {
+    constructor(_id, _jobTitle, _companyName, _jobStartDate, _jobEndDate) {
+        this.id = _id;
+        this.jobTitle = _jobTitle;
+        this.companyName = _companyName;
+        this.jobStartDate = _jobStartDate;
+        this.jobEndDate = _jobEndDate;
+    }
+}
+
+var emptyExpObj = new Experience(0, null, null, null, null);
+// var emptyExpObj = {
+//     id: 0,
+//     jobTitle: null,
+//     companyName: null,
+//     jobStartDate: null,
+//     jobEndDate: null,
+// };
 
 var emptyEduObj = {
+    id: 0,
     institutionName: null,
     eduStartDate: null,
     eduEndDate: null,
@@ -16,8 +29,6 @@ var emptyEduObj = {
 let experience = [emptyExpObj];
 let education = [emptyEduObj];
 let skills = ["Python", "MySQL", "C++"]; 
-// let skills = ["Python", "MySQL", "C++", "Java", "Angular"];
-// console.log(experience);
 
 function deleteSkill(skillName) {
     let skillIdx = skills.indexOf(skillName);
@@ -30,9 +41,9 @@ function deleteSkill(skillName) {
         // Reset text input in dialog
         $("#skillNameInput").val(null);
     }
-
-    // console.log(skills);
 }
+
+function deleteExperience(expIndex) {}
 
 $(function() {
     // When DOM is fully loaded
@@ -72,7 +83,11 @@ $(function() {
     $("#addExperienceBtn").on("click", function() {
         let nextIdx = experience.length;
         let nextElementId = `expCard_${nextIdx}`;
-        experience.push(emptyExpObj);
+
+        let expObj = new Experience(nextIdx, null, null, null, null);
+        expObj.id = nextIdx;
+
+        experience.push(expObj);
 
         let newExpCardElement;
         newExpCardElement = $("<div>");
@@ -82,6 +97,28 @@ $(function() {
         let expCardBody;
         expCardBody = $("<div>");
         expCardBody.addClass("card-body");
+
+        // Create Delete experience card button
+        let buttonRow = $("<div>").addClass(["row", "d-flex", "justify-content-end"]);
+        let buttonCol = $("<div>").addClass(["col", "col-2", "d-flex", "justify-content-end"]);
+        let deleteButton = $("<button>").attr("type", "button").attr("data-experience-id", nextIdx).addClass(["btn", "btn-danger", "btn-sm", "btn-delete-exp"]);
+        let deleteBtnIcon = $("<i>").addClass(["bi", "bi-trash"]);
+
+        deleteButton.append(deleteBtnIcon);
+        buttonCol.append(deleteButton);
+        buttonRow.append(buttonCol);
+
+        deleteButton.on("click", function() {
+            var experienceId = $(this).attr("data-experience-id");
+            var expInstance = experience.filter(obj => obj.id == experienceId)[0];
+            
+            if (expInstance != undefined) {
+                experience.splice(nextIdx, 1);
+                $(`#expCard_${experienceId}`).remove();
+            } else {
+                console.log(`Experience with ID of ${experienceId} not found`);
+            }
+        });
 
         // Create Upper Row of card-body
         let upperRow = $("<div>").addClass(["row", "mb-2"]);
@@ -152,6 +189,7 @@ $(function() {
         bottomRow.append(bottomFirstCol);
         bottomRow.append(bottomSecondCol);
 
+        expCardBody.append(buttonRow);
         expCardBody.append(upperRow);
         expCardBody.append(bottomRow);
         newExpCardElement.append(expCardBody);
@@ -187,6 +225,10 @@ $(function() {
     $("#addEducationBtn").on("click", function() {
         let nextIdx = education.length;
         let nextElementId = `eduCard_${nextIdx}`;
+
+        let eduObj = emptyEduObj;
+        eduObj.id = nextIdx;
+
         education.push(emptyEduObj);
 
         let newEduCardElement;
@@ -418,5 +460,40 @@ $(function() {
 
         // Open dialog
         addSkillsDialog.dialog("open");
+    });
+
+    // Initialize DELETE EXPERIENCE buttons
+    $('.btn-delete-exp').each(function(index, button) {
+        $(button).on("click", function() {
+            var experienceId = $(this).attr("data-experience-id");
+
+            // Filter out from 'experiences' array
+            var expInstance = experience.filter(obj => obj.id == experienceId)[0];
+
+            // DEBUG
+            // console.log(experience);
+            // console.log(expInstance);
+
+            if (expInstance != undefined) {
+                // DEBUG
+                // console.log(expInstance);
+                // console.log(typeof expInstance);
+                // console.log(`INDEX: ${index}`);
+
+                // Delete item from array
+                // console.log("BEFORE DELETING ITEM");
+                // console.log(experience);
+                    
+                experience.splice(index, 1);
+
+                // console.log("AFTER DELETING ITEM");
+                // console.log(experience);
+
+                // Delete experience card element
+                $(`#expCard_${experienceId}`).remove();
+            } else {
+                console.log(`Experience with ID of ${experienceId} not found`);
+            }
+        });
     });
 });
