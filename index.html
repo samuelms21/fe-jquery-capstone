@@ -12,6 +12,21 @@
 <body>
   <div class="main-container container-fluid">
     <h1 class="my-4 text-center">Career Path Recommendation with NEMO</h1>
+
+    <form id="loginForm" class="login-form">
+      <div class="mb-3">
+        <label for="emailAddress">Email Address</label>
+        <input type="email" name="emailAddress" id="emailAddress" class="form-control"
+        placeholder="johndoe@mail.com">
+      </div>
+      <div class="mb-3">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control"
+        placeholder="********">
+      </div>
+      <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+
     <form id="submitProfileForm" class="m-3">
       <div class="row mb-2">
         <!-- Email -->
@@ -128,66 +143,18 @@
       <div id="educationContainer">
         <div class="card mb-2" id="eduCard_0">
           <div class="card-body">
-            <div class="row mb-2">
-              <!-- Institution Name -->
-              <div class="col col-sm-8">
-                <label for="institutionName_0" class="form-label">Institution</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-pin-map"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="JKL Business College" id="institutionName_0">
-                </div>
-              </div>
-              <!-- Education Start Date -->
-              <div class="col col-sm-4">
-                <label for="eduStartDate_0" class="form-label">Start Date</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-calendar-event"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="January 1, 2010" id="eduStartDate_0">
-                </div>
-              </div>
-            </div>
-            <div class="row mb-2">
-              <!-- Field of Study -->
-              <div class="col col-sm-5">
-                <label for="fieldOfStudy_0" class="form-label">Field of Study</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-book"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="Computer Science" id="fieldOfStudy_0">
-                </div>
-              </div>
-              <!-- Degree -->
-              <div class="col col-sm-3">
-                <label for="degree_0" class="form-label">Degree</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-mortarboard"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="B. Sc" id="degree_0">
-                </div>
-              </div>
-              <!-- Education End Date -->
-              <div class="col col-sm-4">
-                <label for="eduEndDate_0" class="form-label">End Date</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-calendar-event"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="January 1, 2014" id="eduEndDate_0">
-                </div>
-              </div>
-        
+            <!-- Institution Name -->
+            <label for="institutionName_0" class="form-label">Institution</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-pin-map"></i>
+              </span>
+              <input type="text" class="form-control" placeholder="JKL Business College" id="institutionName_0">
             </div>
           </div>
         </div>
       </div>
       <!-- END OF EDUCATION CARD -->
-      <button type="button" class="d-block btn btn-dark mt-2 w-100" id="addEducationBtn"><i class="bi bi-plus-square me-2"></i> Add Education</button>
       <!-- END OF EDUCATION -->
       <!-- START OF SKILLS -->
       <h4 class="my-3">Skills</h4>
@@ -205,7 +172,7 @@
   </div>
 
   <div id="addSkillsDialog" title="Add New Skill">
-    <p>All form fields are required.</p>
+    <!-- <p>All form fields are required.</p> -->
     <form id="addSkillsForm">
       <fieldset>
         <label for="skillName" class="form-label">Skill</label>
