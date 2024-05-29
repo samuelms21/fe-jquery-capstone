@@ -37,12 +37,18 @@ body {
 }
 
 #loginForm {
-    /* display: none; */
-    margin: 20px 0;
+    margin: 20px auto;
     padding: 20px;
-    /* background-color: blue; DEBUGGING COLOR */
+    max-width: 768px;
+}
+#submitProfileForm {
+    display: none;
 }
 
-#submitProfileForm {
+#addSkillsDialog {
+    display: none;
+}
+
+#logoutBtn {
     display: none;
 }

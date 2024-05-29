@@ -11,20 +11,23 @@
 </head>
 <body>
   <div class="main-container container-fluid">
+    <button class="btn btn-danger" id="logoutBtn">
+      <i class="bi bi-box-arrow-right"></i> Logout
+    </button>
     <h1 class="my-4 text-center">Career Path Recommendation with NEMO</h1>
 
     <form id="loginForm" class="login-form">
       <div class="mb-3">
-        <label for="emailAddress">Email Address</label>
-        <input type="email" name="emailAddress" id="emailAddress" class="form-control"
-        placeholder="johndoe@mail.com">
+        <label for="emailAddressLogin">Email Address</label>
+        <input type="email" name="emailAddress" id="emailAddressLogin" class="form-control"
+        placeholder="johndoe@mail.com" autocomplete="current-password">
       </div>
       <div class="mb-3">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control"
-        placeholder="********">
+        <label for="passwordLogin">Password</label>
+        <input type="password" name="password" id="passwordLogin" class="form-control"
+        placeholder="********" autocomplete="current-password">
       </div>
-      <input type="submit" value="Login" class="btn btn-primary">
+      <input type="submit" value="Login" class="btn btn-dark">
     </form>
 
     <form id="submitProfileForm" class="m-3">

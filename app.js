@@ -9,13 +9,6 @@ class Experience {
 }
 
 var emptyExpObj = new Experience(0, null, null, null, null);
-// var emptyExpObj = {
-//     id: 0,
-//     jobTitle: null,
-//     companyName: null,
-//     jobStartDate: null,
-//     jobEndDate: null,
-// };
 
 var emptyEduObj = {
     id: 0,
@@ -30,6 +23,8 @@ let experience = [emptyExpObj];
 let education = [emptyEduObj];
 let skills = ["Python", "MySQL", "C++"]; 
 
+let isLoggedIn = false;
+
 function deleteSkill(skillName) {
     let skillIdx = skills.indexOf(skillName);
 
@@ -43,11 +38,9 @@ function deleteSkill(skillName) {
     }
 }
 
-function deleteExperience(expIndex) {}
-
-$(function() {
-    // When DOM is fully loaded
-    console.log("DOM FULLY LOADED");
+function initializeFormFields() {
+    // Display the actual form
+    $("#submitProfileForm").css("display", "initial");
 
     // Initialize datepicker listener to jobStartDate_0 & jobEndDate_0
     $("#jobStartDate_0").datepicker({
@@ -358,8 +351,6 @@ $(function() {
             }
         });
 
-        // DEBUG
-        // console.log($("#experienceContainer").children());
     });
 
     // Create skill-chip elements to list initial skills
@@ -373,13 +364,8 @@ $(function() {
         deleteSkillBtn.on("click", function(event) {
             let chipElement = event.currentTarget.parentElement;
 
-            // DEBUG
-            // console.log(chipElement);
-
             let skillName = $(chipElement).attr("data-skill");
 
-            // console.log(chipElements);
-            // console.log(skillName);
             deleteSkill(skillName);
         });
 
@@ -470,30 +456,63 @@ $(function() {
             // Filter out from 'experiences' array
             var expInstance = experience.filter(obj => obj.id == experienceId)[0];
 
-            // DEBUG
-            // console.log(experience);
-            // console.log(expInstance);
-
             if (expInstance != undefined) {
-                // DEBUG
-                // console.log(expInstance);
-                // console.log(typeof expInstance);
-                // console.log(`INDEX: ${index}`);
-
-                // Delete item from array
-                // console.log("BEFORE DELETING ITEM");
-                // console.log(experience);
-                    
                 experience.splice(index, 1);
-
-                // console.log("AFTER DELETING ITEM");
-                // console.log(experience);
-
-                // Delete experience card element
                 $(`#expCard_${experienceId}`).remove();
             } else {
                 console.log(`Experience with ID of ${experienceId} not found`);
             }
         });
+    });
+}
+
+function initializeLogoutBtn() {
+    if ($("#logoutBtn").length) {
+        $("#logoutBtn").on("click", function() {
+
+        });
+    }
+}
+
+$(function() {
+    // When DOM is fully loaded
+    $("#loginForm").on("submit", function(event) {
+        event.preventDefault();
+
+        let emailInput = $("#emailAddressLogin").val();
+        let passwordInput = $("#passwordLogin").val();
+
+        if (emailInput != null && passwordInput != null) {
+            if (emailInput.trim() != "" && passwordInput.trim() != "") {
+                $.ajax({
+                    url: 'http://localhost:8000/users/login/',
+                    type: 'POST',
+                    data: {
+                        username: emailInput,
+                        password: passwordInput
+                    },
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function(response) {
+                        // Store user info and token after succesful login
+                        sessionStorage.setItem("access-token", JSON.stringify(response["access_token"]));
+                        sessionStorage.setItem("token_type", JSON.stringify(response["token_type"]));
+                        sessionStorage.setItem("user", JSON.stringify(response["user"]));
+                        isLoggedIn = true;
+
+                        $("#loginForm").css("display", "none");
+                        $("#logoutBtn").css("display", "initial");
+                        initializeFormFields();
+                    },
+                    // xhr: XMLTHttpRequest object, contains details about the request made to the server
+                    // xhr.status : HTTP Status Code
+                    // xhr.statusText: the status text of the response
+                    error: function(xhr, status, error) {
+                        alert(JSON.parse(xhr.responseText)["detail"]);
+                        isLoggedIn = false;
+                    }
+                });
+                
+            }
+        }
     });
 });
