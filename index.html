@@ -16,6 +16,20 @@
     </button>
     <h1 class="my-4 text-center">Career Path Recommendation with NEMO</h1>
 
+    <form id="registerForm" class="register-form">
+      <div class="mb-3">
+        <label for="emailAddressRegister">Email Address</label>
+        <input type="email" name="emailAddress" id="emailAddressRegister" class="form-control"
+        placeholder="johndoe@mail.com">
+      </div>
+      <div class="mb-3">
+        <label for="passwordRegister">Password</label>
+        <input type="password" name="password" id="passwordRegister" class="form-control"
+        placeholder="********">
+      </div>
+      <input type="submit" value="Login" class="btn btn-dark">
+    </form>
+
     <form id="loginForm" class="login-form">
       <div class="mb-3">
         <label for="emailAddressLogin">Email Address</label>
@@ -27,7 +41,8 @@
         <input type="password" name="password" id="passwordLogin" class="form-control"
         placeholder="********" autocomplete="current-password">
       </div>
-      <input type="submit" value="Login" class="btn btn-dark">
+      <input type="submit" value="Login" class="btn btn-dark me-2">
+      <a href="#" class="btn btn-link" id="registerLink">Don't have an account yet?</a>
     </form>
 
     <form id="submitProfileForm" class="m-3">

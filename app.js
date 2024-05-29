@@ -21,7 +21,7 @@ var emptyEduObj = {
 
 let experience = [emptyExpObj];
 let education = [emptyEduObj];
-let skills = ["Python", "MySQL", "C++"]; 
+let skills = []; 
 
 let isLoggedIn = false;
 
@@ -406,10 +406,6 @@ function initializeFormFields() {
 
                         newDeleteSkillBtn.on("click", function(event) {
                             let newChipElement = event.currentTarget.parentElement;
-
-                            // debug
-                            // console.log(newChipElement);
-
                             let newSkillName = $(newChipElement).attr("data-skill");
 
                             deleteSkill(newSkillName);
@@ -468,8 +464,32 @@ function initializeFormFields() {
 
 function initializeLogoutBtn() {
     if ($("#logoutBtn").length) {
+        let token = sessionStorage.getItem("access-token");
         $("#logoutBtn").on("click", function() {
+            $.ajax({
+                url: 'http://localhost:8000/users/logout/',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(response) {
+                    // Store user info and token after succesful login
+                    isLoggedIn = false;
+                    sessionStorage.removeItem("access-token");
+                    sessionStorage.removeItem("user");
 
+                    $("#loginForm").css("display", "initial");
+                    $("#logoutBtn").css("display", "none");
+                    $("#submitProfileForm").css("display", "none");
+                },
+                // xhr: XMLTHttpRequest object, contains details about the request made to the server
+                // xhr.status : HTTP Status Code
+                // xhr.statusText: the status text of the response
+                error: function(xhr, status, error) {
+                    alert(JSON.parse(xhr.responseText)["detail"]);
+                    isLoggedIn = false;
+                }
+            });
         });
     }
 }
@@ -495,18 +515,26 @@ $(function() {
                     success: function(response) {
                         // Store user info and token after succesful login
                         sessionStorage.setItem("access-token", JSON.stringify(response["access_token"]));
-                        sessionStorage.setItem("token_type", JSON.stringify(response["token_type"]));
                         sessionStorage.setItem("user", JSON.stringify(response["user"]));
                         isLoggedIn = true;
+
+                        // Clear login form values
+                        $("#emailAddressLogin").val(null);
+                        $("#passwordLogin").val(null);
 
                         $("#loginForm").css("display", "none");
                         $("#logoutBtn").css("display", "initial");
                         initializeFormFields();
+                        initializeLogoutBtn();
                     },
                     // xhr: XMLTHttpRequest object, contains details about the request made to the server
                     // xhr.status : HTTP Status Code
                     // xhr.statusText: the status text of the response
                     error: function(xhr, status, error) {
+                        // console.log(status);
+                        // console.log(error);
+                        // console.log(xhr);
+                        // console.log(JSON.parse(xhr.responseText)["detail"]);
                         alert(JSON.parse(xhr.responseText)["detail"]);
                         isLoggedIn = false;
                     }

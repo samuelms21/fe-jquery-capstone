@@ -45,6 +45,10 @@ body {
     display: none;
 }
 
+#registerForm {
+    display: none;
+}
+
 #addSkillsDialog {
     display: none;
 }
