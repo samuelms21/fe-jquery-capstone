@@ -494,8 +494,27 @@ function initializeLogoutBtn() {
     }
 }
 
+function initializeRegisterForm() {
+    if($("#registerForm").length) {
+        $("#registerForm").on("submit", function(event) {
+            $.ajax({
+                url: 'http://localhost:8000/users/register/',
+                type: 'POST',
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    }
+}
+
 $(function() {
     // When DOM is fully loaded
+
+    // Init login form first
     $("#loginForm").on("submit", function(event) {
         event.preventDefault();
 
@@ -542,5 +561,13 @@ $(function() {
                 
             }
         }
+    });
+
+    // Init register link (if clicked, will be redirected to register form)
+    $("#registerForm").on("click", function() {
+        $("#loginForm").css("display", "none");
+        $("#registerForm").css("display", "initial");
+
+        initializeRegisterForm();
     });
 });
