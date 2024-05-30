@@ -36,7 +36,7 @@ body {
     cursor: pointer;
 }
 
-#loginForm {
+#loginForm, #registerForm {
     margin: 20px auto;
     padding: 20px;
     max-width: 768px;

@@ -16,7 +16,9 @@
     </button>
     <h1 class="my-4 text-center">Career Path Recommendation with NEMO</h1>
 
+    <!-- REGISTER FORM -->
     <form id="registerForm" class="register-form">
+      <h3 class="mb-3">Register</h3>
       <div class="mb-3">
         <label for="emailAddressRegister">Email Address</label>
         <input type="email" name="emailAddress" id="emailAddressRegister" class="form-control"
@@ -27,10 +29,13 @@
         <input type="password" name="password" id="passwordRegister" class="form-control"
         placeholder="********">
       </div>
-      <input type="submit" value="Login" class="btn btn-dark">
+      <input type="submit" value="Register" class="btn btn-primary">
+      <a href="#" class="btn btn-link" id="loginLink">I already have an account</a>
     </form>
+    <!-- REGISTER FORM -->
 
     <form id="loginForm" class="login-form">
+      <h3 class="mb-3">Login</h3>
       <div class="mb-3">
         <label for="emailAddressLogin">Email Address</label>
         <input type="email" name="emailAddress" id="emailAddressLogin" class="form-control"
@@ -198,6 +203,11 @@
       </fieldset>
     </form>
   </div>
+
+  <div id="registerSuccessDialog" title="Registration Successful" style="display:none;">
+    <p>User has been successfully registered!</p>
+  </div>
+
 
   <!-- jQuery -->
   <script src="./node_modules/jquery/dist/jquery.min.js"></script>

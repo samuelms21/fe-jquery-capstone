@@ -496,17 +496,51 @@ function initializeLogoutBtn() {
 
 function initializeRegisterForm() {
     if($("#registerForm").length) {
+        // Init login link (redirect to login form)
+        $("#loginLink").on("click", function() {
+            $("#registerForm").css("display", "none");
+            $("#loginForm").css("display", "initial");
+        });
+
+        // Initialize submit validation function
         $("#registerForm").on("submit", function(event) {
-            $.ajax({
-                url: 'http://localhost:8000/users/register/',
-                type: 'POST',
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
+            console.log("SUBMITTING REGISTER FORM")
+            event.preventDefault();
+
+            let emailReg = $("#emailAddressRegister").val();
+            let passwordReg = $("#passwordRegister").val();
+    
+            if (emailReg != null && passwordReg != null) {
+                if (emailReg.trim() != "" && passwordReg != "") {
+    
+                    var postData = {
+                        email: emailReg,
+                        password: passwordReg,
+                    };
+                    
+                    $.ajax({
+                        url: 'http://localhost:8000/users/register/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(postData),
+                        success: function(response) {
+                            $("#registerSuccessDialog").dialog({
+                                modal: true,
+                                buttons: {
+                                    Ok: function () {
+                                        $(this).dialog("close");
+                                        $("#registerForm").css("display", "none");
+                                        $("#loginForm").css("display", "initial");
+                                    }
+                                }
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
                 }
-            });
+            }
         });
     }
 }
@@ -564,7 +598,7 @@ $(function() {
     });
 
     // Init register link (if clicked, will be redirected to register form)
-    $("#registerForm").on("click", function() {
+    $("#registerLink").on("click", function() {
         $("#loginForm").css("display", "none");
         $("#registerForm").css("display", "initial");
 
