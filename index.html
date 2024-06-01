@@ -101,17 +101,9 @@
         <div class="card mb-2" id="expCard_0">
           <div class="card-body">
             <!-- DELETE Experience Button -->
-            <div class="row d-flex justify-content-end">
-              <div class="col col-2 d-flex justify-content-end">
-                <button type="button" class="btn btn-danger btn-sm btn-delete-exp" data-experience-id="0">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
-            <!-- DELETE Experience Button -->
-            <div class="row mb-2">
+            <div class="row mb-2 d-flex align-items-end">
               <!-- Job Title -->
-              <div class="col col-sm-6">
+              <div class="col col-sm-5">
                 <label for="jobTitle_0" class="form-label">Job Title</label>
                 <div class="input-group">
                   <span class="input-group-text">
@@ -120,20 +112,9 @@
                   <input type="text" class="form-control" placeholder="Salesperson" id="jobTitle_0">
                 </div>
               </div>
-              <!-- Job Start Date -->
-              <div class="col col-sm-6">
-                <label for="jobStartDate_0" class="form-label">Start Date</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-calendar-event"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="January 1, 1990" id="jobStartDate_0">
-                </div>
-              </div>
-            </div>
-            <div class="row mb-2">
-              <!-- Company -->
-              <div class="col col-sm-6">
+              
+              <!-- Company Name -->
+              <div class="col col-sm-5">
                 <label for="companyName_0" class="form-label">Company</label>
                 <div class="input-group">
                   <span class="input-group-text">
@@ -142,16 +123,14 @@
                   <input type="text" class="form-control" placeholder="XYZ Consulting" id="companyName_0">
                 </div>
               </div>
-              <!-- Phone Number -->
-              <div class="col col-sm-6">
-                <label for="jobEndDate_0" class="form-label">End Date</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-calendar-event"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="December 1, 1990" id="jobEndDate_0">
-                </div>
+
+              <!-- DELETE Experience Button -->
+              <div class="col col-sm-2">
+                <button type="button" class="btn btn-danger btn-delete-exp" data-experience-id="0">
+                  <i class="bi bi-trash"></i>
+                </button>
               </div>
+              <!-- DELETE Experience Button -->
             </div>
           </div>
         </div>

@@ -1,22 +1,16 @@
 class Experience {
-    constructor(_id, _jobTitle, _companyName, _jobStartDate, _jobEndDate) {
+    constructor(_id, _jobTitle, _companyName) {
         this.id = _id;
         this.jobTitle = _jobTitle;
         this.companyName = _companyName;
-        this.jobStartDate = _jobStartDate;
-        this.jobEndDate = _jobEndDate;
     }
 }
 
-var emptyExpObj = new Experience(0, null, null, null, null);
+var emptyExpObj = new Experience(0, null, null);
 
 var emptyEduObj = {
     id: 0,
     institutionName: null,
-    eduStartDate: null,
-    eduEndDate: null,
-    fieldOfStudy: null,
-    degree: null,
 };
 
 let experience = [emptyExpObj];
@@ -42,42 +36,12 @@ function initializeFormFields() {
     // Display the actual form
     $("#submitProfileForm").css("display", "initial");
 
-    // Initialize datepicker listener to jobStartDate_0 & jobEndDate_0
-    $("#jobStartDate_0").datepicker({
-        dateFormat: "MM d, yy",
-        onSelect: function(dateText, inst) {
-            $("#jobStartDate_0").val(dateText);
-        }
-    });
-
-    $("#jobEndDate_0").datepicker({
-        dateFormat: "MM d, yy",
-        onSelect: function(dateText, inst) {
-            $("#jobEndDate_0").val(dateText);
-        }
-    });
-    
-    // Initialize datepicker listener to eduStartDate_0 & eduEndDate_0
-    $("#eduStartDate_0").datepicker({
-        dateFormat: "MM d, yy",
-        onSelect: function(dateText, inst) {
-            $("#eduStartDate_0").val(dateText);
-        }
-    });
-
-    $("#eduEndDate_0").datepicker({
-        dateFormat: "MM d, yy",
-        onSelect: function(dateText, inst) {
-            $("#eduEndDate_0").val(dateText);
-        }
-    });
-
     // Initialize listeners to "Add Experience" button
     $("#addExperienceBtn").on("click", function() {
         let nextIdx = experience.length;
         let nextElementId = `expCard_${nextIdx}`;
 
-        let expObj = new Experience(nextIdx, null, null, null, null);
+        let expObj = new Experience(nextIdx, null, null);
         expObj.id = nextIdx;
 
         experience.push(expObj);
@@ -91,15 +55,32 @@ function initializeFormFields() {
         expCardBody = $("<div>");
         expCardBody.addClass("card-body");
 
+        // Create Upper Row of card-body
+        let upperRow = $("<div>").addClass(["row", "mb-2", "d-flex", "align-items-end"]);
+
+        let upperFirstCol = $("<div>").addClass(["col", "col-sm-5"]);
+        let upperSecondCol = $("<div>").addClass(["col", "col-sm-5"]);
+
+        let ufColLabel = $("<label>").addClass("form-label").attr("for", `jobTitle_${nextIdx}`).text("Job Title");
+        let usColLabel = $("<label>").addClass("form-label").attr("for", `companyName_${nextIdx}`).text("Start Date");
+
+        let ufInputGroup = $("<div>").addClass("input-group");
+        let ufTextInput = $("<input>").addClass("form-control").attr("id", `jobTitle_${nextIdx}`).attr("placeholder", "Sales Manager");
+        let usInputGroup = $("<div>").addClass("input-group");
+        let usTextInput = $("<input>").addClass("form-control").attr("id", `companyName_${nextIdx}`).attr("placeholder", "January 1, 1990");
+
+        let ufInputIcon = $("<i>").addClass(["bi", "bi-briefcase"]);
+        let ufInputIconSpan = $("<span>").addClass("input-group-text");
+        let usInputIcon = $("<i>").addClass(["bi", "bi-building"]);
+        let usInputIconSpan = $("<span>").addClass("input-group-text");
+
         // Create Delete experience card button
-        let buttonRow = $("<div>").addClass(["row", "d-flex", "justify-content-end"]);
-        let buttonCol = $("<div>").addClass(["col", "col-2", "d-flex", "justify-content-end"]);
-        let deleteButton = $("<button>").attr("type", "button").attr("data-experience-id", nextIdx).addClass(["btn", "btn-danger", "btn-sm", "btn-delete-exp"]);
+        let buttonCol = $("<div>").addClass(["col", "col-2"]);
+        let deleteButton = $("<button>").attr("type", "button").attr("data-experience-id", nextIdx).addClass(["btn", "btn-danger", "btn-delete-exp"]);
         let deleteBtnIcon = $("<i>").addClass(["bi", "bi-trash"]);
 
         deleteButton.append(deleteBtnIcon);
         buttonCol.append(deleteButton);
-        buttonRow.append(buttonCol);
 
         deleteButton.on("click", function() {
             var experienceId = $(this).attr("data-experience-id");
@@ -112,25 +93,6 @@ function initializeFormFields() {
                 console.log(`Experience with ID of ${experienceId} not found`);
             }
         });
-
-        // Create Upper Row of card-body
-        let upperRow = $("<div>").addClass(["row", "mb-2"]);
-
-        let upperFirstCol = $("<div>").addClass(["col", "col-sm-6"]);
-        let upperSecondCol = $("<div>").addClass(["col", "col-sm-6"]);
-
-        let ufColLabel = $("<label>").addClass("form-label").attr("for", `jobTitle_${nextIdx}`).text("Job Title");
-        let usColLabel = $("<label>").addClass("form-label").attr("for", `jobStartDate_${nextIdx}`).text("Start Date");
-
-        let ufInputGroup = $("<div>").addClass("input-group");
-        let ufTextInput = $("<input>").addClass("form-control").attr("id", `jobTitle_${nextIdx}`).attr("placeholder", "Sales Manager");
-        let usInputGroup = $("<div>").addClass("input-group");
-        let usTextInput = $("<input>").addClass("form-control").attr("id", `jobStartDate_${nextIdx}`).attr("placeholder", "January 1, 1990");
-
-        let ufInputIcon = $("<i>").addClass(["bi", "bi-briefcase"]);
-        let ufInputIconSpan = $("<span>").addClass("input-group-text");
-        let usInputIcon = $("<i>").addClass(["bi", "bi-calendar-event"]);
-        let usInputIconSpan = $("<span>").addClass("input-group-text");
 
         ufInputIconSpan.append(ufInputIcon);
         usInputIconSpan.append(usInputIcon);
@@ -147,71 +109,11 @@ function initializeFormFields() {
 
         upperRow.append(upperFirstCol);
         upperRow.append(upperSecondCol);
+        upperRow.append(buttonCol);
 
-        // Create Bottom Row of card-body
-        let bottomRow = $("<div>").addClass(["row", "mb-2"]);
-        let bottomFirstCol = $("<div>").addClass(["col", "col-sm-6"]);
-        let bottomSecondCol = $("<div>").addClass(["col", "col-sm-6"]);
-        
-        let bfColLabel = $("<label>").addClass("form-label").attr("for", `companyName_${nextIdx}`).text("Company");
-        let bsColLabel = $("<label>").addClass("form-label").attr("for", `jobEndDate_${nextIdx}`).text("End Date");
-
-        let bfInputGroup = $("<div>").addClass("input-group");
-        let bfTextInput = $("<input>").addClass("form-control").attr("id", `companyName_${nextIdx}`).attr("placeholder", "XYZ Consulting");
-        let bsInputGroup = $("<div>").addClass("input-group");
-        let bsTextInput = $("<input>").addClass("form-control").attr("id", `jobEndDate_${nextIdx}`).attr("placeholder", "December 1, 1990");
-
-        let bfInputIcon = $("<i>").addClass(["bi", "bi-building"]);
-        let bfInputIconSpan = $("<span>").addClass("input-group-text");
-        let bsInputIcon = $("<i>").addClass(["bi", "bi-calendar-event"]);
-        let bsInputIconSpan = $("<span>").addClass("input-group-text");
-
-        bfInputIconSpan.append(bfInputIcon);
-        bsInputIconSpan.append(bsInputIcon);
-
-        bfInputGroup.append(bfInputIconSpan);
-        bfInputGroup.append(bfTextInput);
-        bsInputGroup.append(bsInputIconSpan);
-        bsInputGroup.append(bsTextInput);
-
-        bottomFirstCol.append(bfColLabel);
-        bottomFirstCol.append(bfInputGroup);
-        bottomSecondCol.append(bsColLabel);
-        bottomSecondCol.append(bsInputGroup);
-
-        bottomRow.append(bottomFirstCol);
-        bottomRow.append(bottomSecondCol);
-
-        expCardBody.append(buttonRow);
         expCardBody.append(upperRow);
-        expCardBody.append(bottomRow);
         newExpCardElement.append(expCardBody);
         $("#experienceContainer").append(newExpCardElement);
-
-        // Attach datepicker listener to #jobStartDate_{index} element
-        $(`#jobStartDate_${nextIdx}`).datepicker({
-            dateFormat: "MM d, yy",
-            onSelect: function(dateText, inst) {
-                $(`#jobStartDate_${nextIdx}`).val(dateText);
-                
-                // DEBUG
-                // console.log(inst);
-            }
-        });
-
-        // Attach datepicker listener to #jobEndDate_{index} element
-        $(`#jobEndDate_${nextIdx}`).datepicker({
-            dateFormat: "MM d, yy",
-            onSelect: function(dateText, inst) {
-                $(`#jobEndDate_${nextIdx}`).val(dateText);
-                
-                // DEBUG
-                // console.log(inst);
-            }
-        });
-
-        // DEBUG
-        // console.log($("#experienceContainer").children());
     });
 
     // Initialize listeners to "Add Education" button
