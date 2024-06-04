@@ -116,145 +116,6 @@ function initializeFormFields() {
         $("#experienceContainer").append(newExpCardElement);
     });
 
-    // Initialize listeners to "Add Education" button
-    $("#addEducationBtn").on("click", function() {
-        let nextIdx = education.length;
-        let nextElementId = `eduCard_${nextIdx}`;
-
-        let eduObj = emptyEduObj;
-        eduObj.id = nextIdx;
-
-        education.push(emptyEduObj);
-
-        let newEduCardElement;
-        newEduCardElement = $("<div>");
-        newEduCardElement.addClass(["card", "mb-2"]);
-        newEduCardElement.attr("id", nextElementId);
-        
-        let eduCardBody;
-        eduCardBody = $("<div>");
-        eduCardBody.addClass("card-body");
-
-        // Create Upper Row of card-body
-        let eduUpperRow = $("<div>").addClass(["row", "mb-2"]);
-
-        // edu U F C : upper first column
-        let eduUFC = $("<div>").addClass(["col", "col-sm-8"]);
-        // edu U S C : upper second column
-        let eduUSC = $("<div>").addClass(["col", "col-sm-4"]);
-
-        let eduUFCLabel = $("<label>").addClass("form-label").attr("for", `institutionName_${nextIdx}`).text("Institution");
-        let eduUSCLabel = $("<label>").addClass("form-label").attr("for", `eduStartDate_${nextIdx}`).text("Start Date");
-
-        let eduUFInputGroup = $("<div>").addClass("input-group");
-        let eduUFTextInput = $("<input>").addClass("form-control").attr("id", `institutionName_${nextIdx}`).attr("placeholder", "JKL Business College");
-        let eduUSInputGroup = $("<div>").addClass("input-group");
-        let eduUSTextInput = $("<input>").addClass("form-control").attr("id", `eduStartDate_${nextIdx}`).attr("placeholder", "January 1, 2010");
-
-        let eduUFInputIcon = $("<i>").addClass(["bi", "bi-pin-map"]);
-        let eduUFInputIconSpan = $("<span>").addClass("input-group-text");
-        let eduUSInputIcon = $("<i>").addClass(["bi", "bi-calendar-event"]);
-        let eduUSInputIconSpan = $("<span>").addClass("input-group-text");
-
-        eduUFInputIconSpan.append(eduUFInputIcon);
-        eduUSInputIconSpan.append(eduUSInputIcon);
-
-        eduUFInputGroup.append(eduUFInputIconSpan);
-        eduUFInputGroup.append(eduUFTextInput);
-        eduUSInputGroup.append(eduUSInputIconSpan);
-        eduUSInputGroup.append(eduUSTextInput);
-
-        eduUFC.append(eduUFCLabel);
-        eduUFC.append(eduUFInputGroup);
-        eduUSC.append(eduUSCLabel);
-        eduUSC.append(eduUSInputGroup);
-
-        eduUpperRow.append(eduUFC);
-        eduUpperRow.append(eduUSC);
-
-        // Create Bottom Row of card-body
-        let eduBottomRow = $("<div>").addClass(["row", "mb-2"]);
-        let eduBFC = $("<div>").addClass(["col", "col-sm-5"]);
-        let eduBSC = $("<div>").addClass(["col", "col-sm-3"]);
-        // edu B T C : bottom third column
-        let eduBTC = $("<div>").addClass(["col", "col-sm-4"]);
-        
-        let eduBFColLabel = $("<label>").addClass("form-label").attr("for", `fieldOfStudy_${nextIdx}`).text("Field of Study");
-        let eduBSColLabel = $("<label>").addClass("form-label").attr("for", `degree_${nextIdx}`).text("Degree");
-        // eduBTColLabel : education bottom third column label
-        let eduBTColLabel = $("<label>").addClass("form-label").attr("for", `eduEndDate_${nextIdx}`).text("End Date");
-
-        // let bfInputGroup = $("<div>").addClass("input-group");
-        let eduBFInputGroup = $("<div>").addClass("input-group");
-        let eduBFTextInput = $("<input>").addClass("form-control").attr("id", `fieldOfStudy_${nextIdx}`).attr("placeholder", "Computer Science");
-
-        // let bsInputGroup = $("<div>").addClass("input-group");
-        let eduBSInputGroup = $("<div>").addClass("input-group");
-        let eduBSTextInput = $("<input>").addClass("form-control").attr("id", `degree_${nextIdx}`).attr("placeholder", "B. Sc");
-
-        let eduBTInputGroup = $("<div>").addClass("input-group");
-        let eduBTTextInput = $("<input>").addClass("form-control").attr("id", `eduEndDate_${nextIdx}`).attr("placeholder", "January 1, 2014");
-
-        let eduBFInputIcon = $("<i>").addClass(["bi", "bi-book"]);
-        let eduBFInputIconSpan = $("<span>").addClass("input-group-text");
-
-        let eduBSInputIcon = $("<i>").addClass(["bi", "bi-mortarboard"]);
-        let eduBSInputIconSpan = $("<span>").addClass("input-group-text");
-
-        let eduBTInputIcon = $("<i>").addClass(["bi", "bi-calendar-event"]);
-        let eduBTInputIconSpan = $("<span>").addClass("input-group-text");
-
-        eduBFInputIconSpan.append(eduBFInputIcon);
-        eduBSInputIconSpan.append(eduBSInputIcon);
-        eduBTInputIconSpan.append(eduBTInputIcon);
-
-        eduBFInputGroup.append(eduBFInputIconSpan);
-        eduBFInputGroup.append(eduBFTextInput);
-        eduBSInputGroup.append(eduBSInputIconSpan);
-        eduBSInputGroup.append(eduBSTextInput);
-        eduBTInputGroup.append(eduBTInputIconSpan);
-        eduBTInputGroup.append(eduBTTextInput);
-
-        eduBFC.append(eduBFColLabel);
-        eduBFC.append(eduBFInputGroup);
-        eduBSC.append(eduBSColLabel);
-        eduBSC.append(eduBSInputGroup);
-        eduBTC.append(eduBTColLabel);
-        eduBTC.append(eduBTInputGroup);
-
-        eduBottomRow.append(eduBFC);
-        eduBottomRow.append(eduBSC);
-        eduBottomRow.append(eduBTC);
-
-        eduCardBody.append(eduUpperRow);
-        eduCardBody.append(eduBottomRow);
-        newEduCardElement.append(eduCardBody);
-        $("#educationContainer").append(newEduCardElement);
-
-        // Attach datepicker listener to #eduStartDate_{index} element
-        $(`#eduStartDate_${nextIdx}`).datepicker({
-            dateFormat: "MM d, yy",
-            onSelect: function(dateText, inst) {
-                $(`#eduStartDate_${nextIdx}`).val(dateText);
-                
-                // DEBUG
-                // console.log(inst);
-            }
-        });
-
-        // Attach datepicker listener to #eduEndDate_{index} element
-        $(`#eduEndDate_${nextIdx}`).datepicker({
-            dateFormat: "MM d, yy",
-            onSelect: function(dateText, inst) {
-                $(`#eduEndDate_${nextIdx}`).val(dateText);
-                
-                // DEBUG
-                // console.log(inst);
-            }
-        });
-
-    });
-
     // Create skill-chip elements to list initial skills
     for (var k = 0; k < skills.length; k++) {
         var currentSkill = skills[k];
@@ -328,13 +189,9 @@ function initializeFormFields() {
                 }
             }
         ],
-        close: function() {
-            // console.log("closed add skills dialog");
-        }
     });
 
     $("#addSkillsForm").on("submit", function(event) {
-        // console.log(event);
         event.preventDefault();
     });
 
@@ -362,6 +219,55 @@ function initializeFormFields() {
             }
         });
     });
+
+    $('#saveProfileBtn').on('click', function() {
+        // console.log("save profile button clicked");
+        let saveProfileObj = {
+            "email": "mail@example.com",
+            "id": 1,
+            "full_name": "NEW John Doe",
+            "phone": "087829677020",
+            "location": "Bandung",
+            "education": "ITB",
+            "job_experiences": [
+                {
+                    "id_user": 1,
+                    "job_title": "Web Developer",
+                    "company_name": "Google"
+                },
+                {
+                    "id_user": 1,
+                    "job_title": "Software Engineer",
+                    "company_name": "Oracle"
+                },
+            ],
+            "skills": [
+                {"skill": "Python"},
+                {"skill": "MySQL"}
+            ],
+        };
+        
+        let accessToken = sessionStorage.getItem('access-token');
+
+        console.log(saveProfileObj);
+
+        $.ajax({
+            url: 'http://localhost:8000/users/edit',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(saveProfileObj),
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            },
+            success: function(response) {
+                console.log(typeof response)
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
 }
 
 function initializeLogoutBtn() {
@@ -384,9 +290,6 @@ function initializeLogoutBtn() {
                     $("#logoutBtn").css("display", "none");
                     $("#submitProfileForm").css("display", "none");
                 },
-                // xhr: XMLTHttpRequest object, contains details about the request made to the server
-                // xhr.status : HTTP Status Code
-                // xhr.statusText: the status text of the response
                 error: function(xhr, status, error) {
                     alert(JSON.parse(xhr.responseText)["detail"]);
                     isLoggedIn = false;
@@ -406,7 +309,6 @@ function initializeRegisterForm() {
 
         // Initialize submit validation function
         $("#registerForm").on("submit", function(event) {
-            console.log("SUBMITTING REGISTER FORM")
             event.preventDefault();
 
             let emailReg = $("#emailAddressRegister").val();
@@ -438,7 +340,7 @@ function initializeRegisterForm() {
                             });
                         },
                         error: function(xhr, status, error) {
-                            console.log(error);
+                            alert(JSON.parse(xhr.responseText)["detail"]);
                         }
                     });
                 }
@@ -449,7 +351,6 @@ function initializeRegisterForm() {
 
 $(function() {
     // When DOM is fully loaded
-
     // Init login form first
     $("#loginForm").on("submit", function(event) {
         event.preventDefault();
@@ -482,14 +383,8 @@ $(function() {
                         initializeFormFields();
                         initializeLogoutBtn();
                     },
-                    // xhr: XMLTHttpRequest object, contains details about the request made to the server
-                    // xhr.status : HTTP Status Code
-                    // xhr.statusText: the status text of the response
+
                     error: function(xhr, status, error) {
-                        // console.log(status);
-                        // console.log(error);
-                        // console.log(xhr);
-                        // console.log(JSON.parse(xhr.responseText)["detail"]);
                         alert(JSON.parse(xhr.responseText)["detail"]);
                         isLoggedIn = false;
                     }
