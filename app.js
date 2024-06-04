@@ -249,8 +249,6 @@ function initializeFormFields() {
         
         let accessToken = sessionStorage.getItem('access-token');
 
-        console.log(saveProfileObj);
-
         $.ajax({
             url: 'http://localhost:8000/users/edit',
             type: 'PUT',
@@ -260,10 +258,11 @@ function initializeFormFields() {
                 'Authorization': 'Bearer ' + accessToken
             },
             success: function(response) {
-                console.log(typeof response)
+                // console.log(typeof response)
                 console.log(response);
             },
             error: function(xhr, status, error) {
+                console.error("HTTP STATUS CODE: ", status)
                 console.error(error);
             }
         });
@@ -291,7 +290,7 @@ function initializeLogoutBtn() {
                     $("#submitProfileForm").css("display", "none");
                 },
                 error: function(xhr, status, error) {
-                    alert(JSON.parse(xhr.responseText)["detail"]);
+                    console.log(xhr);
                     isLoggedIn = false;
                 }
             });
