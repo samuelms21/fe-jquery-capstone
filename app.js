@@ -354,7 +354,21 @@ function initializeLogoutBtn() {
                     experience = [];
                     skills = [];
 
-                    // Clean out remaining HTML elements
+                    // Remove remaining HTML elements
+                    // Remove all currently-displayed experience cards
+                    $('#experienceContainer').find('div.card').remove();
+
+                    // Remove all currently-displayed skill chip
+                    $('#skillsContainer').find('div.skill-chip').remove();
+
+                    // Clear out profile form fields
+                    $('#email').val(null);
+                    $('#phone').val(null);
+                    $('#fullname').val(null);
+                    $('#location').val(null);
+
+                    // Clear out education form field
+                    $('#institutionName_0').val(null);
 
                     $("#loginForm").css("display", "initial");
                     $("#logoutBtn").css("display", "none");
