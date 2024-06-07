@@ -6,14 +6,12 @@ class Experience {
     }
 }
 
-var emptyExpObj = new Experience(0, null, null);
-
 var emptyEduObj = {
     id: 0,
     institutionName: null,
 };
 
-let experience = [emptyExpObj];
+let experience = [];
 let education = [emptyEduObj];
 let skills = []; 
 
@@ -32,89 +30,129 @@ function deleteSkill(skillName) {
     }
 }
 
+function initExperienceCard(jobTitle, companyName) {
+    let nextIdx = experience.length;
+    let nextElementId = `expCard_${nextIdx}`;
+
+    let expObj = new Experience(nextIdx, jobTitle, companyName);
+    expObj.id = nextIdx;
+
+    experience.push(expObj);
+
+    let newExpCardElement;
+    newExpCardElement = $("<div>");
+    newExpCardElement.addClass(["card", "mb-2"]);
+    newExpCardElement.attr("id", nextElementId);
+    
+    let expCardBody;
+    expCardBody = $("<div>");
+    expCardBody.addClass("card-body");
+
+    // Create Upper Row of card-body
+    let upperRow = $("<div>").addClass(["row", "mb-2", "d-flex", "align-items-end"]);
+
+    let upperFirstCol = $("<div>").addClass(["col", "col-sm-5"]);
+    let upperSecondCol = $("<div>").addClass(["col", "col-sm-5"]);
+
+    let ufColLabel = $("<label>").addClass("form-label").attr("for", `jobTitle_${nextIdx}`).text("Job Title");
+    let usColLabel = $("<label>").addClass("form-label").attr("for", `companyName_${nextIdx}`).text("Company");
+
+    let ufInputGroup = $("<div>").addClass("input-group");
+    let ufTextInput = $("<input>").addClass("form-control").attr("id", `jobTitle_${nextIdx}`).attr("placeholder", "Sales Manager");
+
+    if (jobTitle != null) {
+        ufTextInput.val(jobTitle);
+    }
+
+    let usInputGroup = $("<div>").addClass("input-group");
+    let usTextInput = $("<input>").addClass("form-control").attr("id", `companyName_${nextIdx}`).attr("placeholder", "XYZ Consulting");
+
+    if (companyName != null) {
+        usTextInput.val(companyName);
+    }
+
+    let ufInputIcon = $("<i>").addClass(["bi", "bi-briefcase"]);
+    let ufInputIconSpan = $("<span>").addClass("input-group-text");
+    let usInputIcon = $("<i>").addClass(["bi", "bi-building"]);
+    let usInputIconSpan = $("<span>").addClass("input-group-text");
+
+    // Create Delete experience card button
+    let buttonCol = $("<div>").addClass(["col", "col-2"]);
+    let deleteButton = $("<button>").attr("type", "button").attr("data-experience-id", nextIdx).addClass(["btn", "btn-danger", "btn-delete-exp"]);
+    let deleteBtnIcon = $("<i>").addClass(["bi", "bi-trash"]);
+
+    deleteButton.append(deleteBtnIcon);
+    buttonCol.append(deleteButton);
+
+    deleteButton.on("click", function() {
+        var experienceId = $(this).attr("data-experience-id");
+        var expInstance = experience.filter(obj => obj.id == experienceId)[0];
+        
+        if (expInstance != undefined) {
+            experience.splice(experience.indexOf(expInstance), 1);
+            $(`#expCard_${experienceId}`).remove();
+        } else {
+            console.log(`Experience with ID of ${experienceId} not found`);
+        }
+    });
+
+    ufInputIconSpan.append(ufInputIcon);
+    usInputIconSpan.append(usInputIcon);
+
+    ufInputGroup.append(ufInputIconSpan);
+    ufInputGroup.append(ufTextInput);
+    usInputGroup.append(usInputIconSpan);
+    usInputGroup.append(usTextInput);
+
+    upperFirstCol.append(ufColLabel);
+    upperFirstCol.append(ufInputGroup);
+    upperSecondCol.append(usColLabel);
+    upperSecondCol.append(usInputGroup);
+
+    upperRow.append(upperFirstCol);
+    upperRow.append(upperSecondCol);
+    upperRow.append(buttonCol);
+
+    expCardBody.append(upperRow);
+    newExpCardElement.append(expCardBody);
+    $("#experienceContainer").append(newExpCardElement);
+}
+
+function initSkillChip(newSkill) {
+    if (newSkill.trim() == "") {
+        alert("Skill is still empty.");
+        return;
+    }
+
+    let indexOfSkill = skills.indexOf(newSkill);
+    if (indexOfSkill == -1) {
+        skills.push(newSkill);
+
+        var newSkillChip = $("<div>").addClass("skill-chip").text(newSkill);
+        newSkillChip.attr("data-skill", newSkill);
+
+        var newDeleteSkillBtn = $("<div>").addClass(["ms-2", "custom-close-btn"]).html('<i class="bi bi-x-circle-fill"></i>');
+
+        newDeleteSkillBtn.on("click", function(event) {
+            let newChipElement = event.currentTarget.parentElement;
+            let newSkillName = $(newChipElement).attr("data-skill");
+
+            deleteSkill(newSkillName);
+        });
+
+        newSkillChip.append(newDeleteSkillBtn);
+        $("#skillsContainer").append(newSkillChip);
+    }
+}
+
 function initializeFormFields() {
     // Display the actual form
     $("#submitProfileForm").css("display", "initial");
 
+    // Remove previously-displayed/created HTML elements (cards, chips, etc.)
+
     // Initialize listeners to "Add Experience" button
-    $("#addExperienceBtn").on("click", function() {
-        let nextIdx = experience.length;
-        let nextElementId = `expCard_${nextIdx}`;
-
-        let expObj = new Experience(nextIdx, null, null);
-        expObj.id = nextIdx;
-
-        experience.push(expObj);
-
-        let newExpCardElement;
-        newExpCardElement = $("<div>");
-        newExpCardElement.addClass(["card", "mb-2"]);
-        newExpCardElement.attr("id", nextElementId);
-        
-        let expCardBody;
-        expCardBody = $("<div>");
-        expCardBody.addClass("card-body");
-
-        // Create Upper Row of card-body
-        let upperRow = $("<div>").addClass(["row", "mb-2", "d-flex", "align-items-end"]);
-
-        let upperFirstCol = $("<div>").addClass(["col", "col-sm-5"]);
-        let upperSecondCol = $("<div>").addClass(["col", "col-sm-5"]);
-
-        let ufColLabel = $("<label>").addClass("form-label").attr("for", `jobTitle_${nextIdx}`).text("Job Title");
-        let usColLabel = $("<label>").addClass("form-label").attr("for", `companyName_${nextIdx}`).text("Start Date");
-
-        let ufInputGroup = $("<div>").addClass("input-group");
-        let ufTextInput = $("<input>").addClass("form-control").attr("id", `jobTitle_${nextIdx}`).attr("placeholder", "Sales Manager");
-        let usInputGroup = $("<div>").addClass("input-group");
-        let usTextInput = $("<input>").addClass("form-control").attr("id", `companyName_${nextIdx}`).attr("placeholder", "January 1, 1990");
-
-        let ufInputIcon = $("<i>").addClass(["bi", "bi-briefcase"]);
-        let ufInputIconSpan = $("<span>").addClass("input-group-text");
-        let usInputIcon = $("<i>").addClass(["bi", "bi-building"]);
-        let usInputIconSpan = $("<span>").addClass("input-group-text");
-
-        // Create Delete experience card button
-        let buttonCol = $("<div>").addClass(["col", "col-2"]);
-        let deleteButton = $("<button>").attr("type", "button").attr("data-experience-id", nextIdx).addClass(["btn", "btn-danger", "btn-delete-exp"]);
-        let deleteBtnIcon = $("<i>").addClass(["bi", "bi-trash"]);
-
-        deleteButton.append(deleteBtnIcon);
-        buttonCol.append(deleteButton);
-
-        deleteButton.on("click", function() {
-            var experienceId = $(this).attr("data-experience-id");
-            var expInstance = experience.filter(obj => obj.id == experienceId)[0];
-            
-            if (expInstance != undefined) {
-                experience.splice(nextIdx, 1);
-                $(`#expCard_${experienceId}`).remove();
-            } else {
-                console.log(`Experience with ID of ${experienceId} not found`);
-            }
-        });
-
-        ufInputIconSpan.append(ufInputIcon);
-        usInputIconSpan.append(usInputIcon);
-
-        ufInputGroup.append(ufInputIconSpan);
-        ufInputGroup.append(ufTextInput);
-        usInputGroup.append(usInputIconSpan);
-        usInputGroup.append(usTextInput);
-
-        upperFirstCol.append(ufColLabel);
-        upperFirstCol.append(ufInputGroup);
-        upperSecondCol.append(usColLabel);
-        upperSecondCol.append(usInputGroup);
-
-        upperRow.append(upperFirstCol);
-        upperRow.append(upperSecondCol);
-        upperRow.append(buttonCol);
-
-        expCardBody.append(upperRow);
-        newExpCardElement.append(expCardBody);
-        $("#experienceContainer").append(newExpCardElement);
-    });
+    $("#addExperienceBtn").on("click", () => initExperienceCard(null, null));
 
     // Create skill-chip elements to list initial skills
     for (var k = 0; k < skills.length; k++) {
@@ -152,32 +190,8 @@ function initializeFormFields() {
                 click: function() {
                     // Get skill text input
                     let newSkill = $("#skillNameInput").val();
+                    initSkillChip(newSkill);
                     
-                    if (newSkill.trim() == "") {
-                        alert("Skill is still empty.");
-                        return;
-                    }
-
-                    let indexOfSkill = skills.indexOf(newSkill);
-                    if (indexOfSkill == -1) {
-                        skills.push(newSkill);
-
-                        var newSkillChip = $("<div>").addClass("skill-chip").text(newSkill);
-                        newSkillChip.attr("data-skill", newSkill);
-
-                        var newDeleteSkillBtn = $("<div>").addClass(["ms-2", "custom-close-btn"]).html('<i class="bi bi-x-circle-fill"></i>');
-
-                        newDeleteSkillBtn.on("click", function(event) {
-                            let newChipElement = event.currentTarget.parentElement;
-                            let newSkillName = $(newChipElement).attr("data-skill");
-
-                            deleteSkill(newSkillName);
-                        });
-                
-                        newSkillChip.append(newDeleteSkillBtn);
-                        $("#skillsContainer").append(newSkillChip);
-                    }
-
                     $(this).dialog("close");
                 }
             },
@@ -220,35 +234,86 @@ function initializeFormFields() {
         });
     });
 
+    // Initialize user info inside the form fields 
+    // If user has previously-saved info, then fill in the blanks (input elements)
+    var userInfo = JSON.parse(sessionStorage.getItem('user'));
+    $('#email').val(userInfo['email']);
+    $('#fullname').val(userInfo['full_name']);
+    $('#phone').val(userInfo['phone']);
+    $('#location').val(userInfo['location']);
+    $('#institutionName_0').val(userInfo['education']);
+
+    // Initialize others, like skills, and experience (if previously-saved data exists)
+    // Initialize past job experiences (if any)
+    for (var j = 0; j < userInfo['job_experiences'].length; j++) {
+        var currExpItem = userInfo['job_experiences'][j];
+        initExperienceCard(currExpItem['job_title'], currExpItem['company_name']);
+    }
+
+    // Initialize skills
+    for (var k = 0; k < userInfo['skills'].length; k++) {
+        var currSkillName = userInfo['skills'][k]['skill'];
+        initSkillChip(currSkillName);
+    }
+
     $('#saveProfileBtn').on('click', function() {
-        // console.log("save profile button clicked");
+        let oldUserInfo = JSON.parse(sessionStorage.getItem('user'));
         let saveProfileObj = {
-            "email": "mail@example.com",
-            "id": 1,
-            "full_name": "NEW John Doe",
-            "phone": "087829677020",
-            "location": "Bandung",
-            "education": "ITB",
-            "job_experiences": [
-                {
-                    "id_user": 1,
-                    "job_title": "Web Developer",
-                    "company_name": "Google"
-                },
-                {
-                    "id_user": 1,
-                    "job_title": "Software Engineer",
-                    "company_name": "Oracle"
-                },
-            ],
-            "skills": [
-                {"skill": "Python"},
-                {"skill": "MySQL"}
-            ],
+            email: $('#email').val()?.trim() ?? null,
+            id: oldUserInfo['id'],
+            full_name: $('#fullname').val()?.trim() ?? null,
+            phone: $('#phone').val()?.trim() ?? null,
+            location: $('#location').val()?.trim() ?? null,
+            education: $('#institutionName_0').val()?.trim() ?? null,
         };
+
+        let savedJobExps = [];
+        
+        // Save past job experience data entered by user
+        let allExperienceCards = $('#experienceContainer').children();
+
+        for (let i = 0; i < allExperienceCards.length; i++) {
+
+            if ($(allExperienceCards[i]).hasClass("card")) {
+                
+                var jobExpItem = {
+                    'id_user': oldUserInfo['id'],
+                };
+
+                var columns = $(allExperienceCards[i]).find('div.card-body').find('div.row').find('div.col.col-sm-5');
+
+                columns.each(function(index, element) {
+                    if (index == 0) {
+                        var jobTitleIdx = $(element).find('input').val();
+                        jobExpItem['job_title'] = jobTitleIdx
+                    }
+
+                    if (index == 1) {
+                        var companyNameIdx =  $(element).find('input').val();
+                        jobExpItem['company_name'] = companyNameIdx;
+                    }
+                });
+
+
+                savedJobExps.push(jobExpItem);
+            }
+        }
+
+        saveProfileObj['job_experiences'] = savedJobExps;
+
+        // Save skills data entered by user
+        let savedSkills = [];
+
+        for (let j = 0; j < skills.length; j++) {
+            var skillObj = {'skill': skills[j]};
+            savedSkills.push(skillObj);
+        }
+
+        saveProfileObj['skills'] = savedSkills;
         
         let accessToken = sessionStorage.getItem('access-token');
 
+        // PUT REQUEST TO EDIT USER INFO
         $.ajax({
             url: 'http://localhost:8000/users/edit',
             type: 'PUT',
@@ -258,21 +323,22 @@ function initializeFormFields() {
                 'Authorization': 'Bearer ' + accessToken
             },
             success: function(response) {
-                // console.log(typeof response)
-                console.log(response);
+                $("#saveSuccessDialog").dialog();
             },
             error: function(xhr, status, error) {
                 console.error("HTTP STATUS CODE: ", status)
                 console.error(error);
             }
         });
+        // END OF PUT REQUEST TO EDIT USER INFO
     });
 }
 
 function initializeLogoutBtn() {
-    if ($("#logoutBtn").length) {
+    if ($("#logoutBtn")) {
         let token = sessionStorage.getItem("access-token");
         $("#logoutBtn").on("click", function() {
+
             $.ajax({
                 url: 'http://localhost:8000/users/logout/',
                 type: 'POST',
@@ -281,9 +347,14 @@ function initializeLogoutBtn() {
                 },
                 success: function(response) {
                     // Store user info and token after succesful login
-                    isLoggedIn = false;
                     sessionStorage.removeItem("access-token");
                     sessionStorage.removeItem("user");
+
+                    // Clean out all other data (skills & experience arrays)
+                    experience = [];
+                    skills = [];
+
+                    // Clean out remaining HTML elements
 
                     $("#loginForm").css("display", "initial");
                     $("#logoutBtn").css("display", "none");
